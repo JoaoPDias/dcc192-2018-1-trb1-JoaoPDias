@@ -60,7 +60,17 @@
 
         </table>
         <div>
-            <a href="adicionar-pedidos.html?mesaPedido=${mesaPedido.id}" class="btn btn-success">Adicionar Pedido</a>
+            <c:choose>
+                <c:when test="${requestScope.abertos=='false'}">
+                    <a href="adicionar-pedidos.html?mesaPedido=${mesaPedido.id}" class="btn btn-success" >Adicionar Pedido</a>
+                </c:when>
+                <c:when test="${requestScope.abertos=='true'}">
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Um Pedido está Aberto. Feche-o, para adicionar um novo">
+                    <button class="btn btn-success" disabled="disabled" >Adicionar Pedido</button>
+                    </span>
+                </c:when>
+            </c:choose>
+
             <a href="mesas.html" class="btn btn-danger">Voltar</a>
         </div>
     </body>

@@ -105,4 +105,13 @@ public class Mesa {
         }
         return null;
     }
+    
+    public boolean haAbertos(){
+        for(Pedido p : this.getPedido()){
+            if(!p.isFechado()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

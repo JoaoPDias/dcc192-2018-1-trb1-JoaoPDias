@@ -2,7 +2,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="jspf/head.jspf" %>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Adicionar Item</title>
+        <%@include file="jspf/head.jspf" %>
+    </head>
     <body>
         <h1>Adicionar Item</h1>
         <form method="post">

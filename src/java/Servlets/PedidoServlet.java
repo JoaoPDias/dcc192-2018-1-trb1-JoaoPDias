@@ -23,6 +23,7 @@ public class PedidoServlet extends HttpServlet {
                 RequestDispatcher despachante = request.getRequestDispatcher("/WEB-INF/pedidos.jsp");
                 request.setAttribute("pedidos", mesaPedido.getPedido());
                 request.setAttribute("mesaPedido", mesaPedido);
+                request.setAttribute("abertos", mesaPedido.haAbertos());
                 despachante.forward(request, response);
             } else {
                 response.sendError(404);

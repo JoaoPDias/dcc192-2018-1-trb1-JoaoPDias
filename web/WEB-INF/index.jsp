@@ -19,7 +19,7 @@
                 Restaurante
             </a>
         </nav>
-        <img src="icones/restaurante.jpg" class="img-fluid rounded mx-auto d-block">
+        <img src="icones/restaurante.jpg" class="img-fluid rounded mx-auto d-block" alt="Restaurante">
     </body>
 </html>
 
