@@ -5,24 +5,30 @@
 
 <!DOCTYPE html>
 <html>
-    <%@include file="jspf/head.jspf" %>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Lista de Mesas</title>
+        <%@include file="jspf/head.jspf" %>
+    </head>
     <body>
-        <table>
+        <h1>Lista de Mesas</h1>
+        <table class="table table-dark">
             <thead>
             <th>ID</th>
             <th>Descrição</th>
             <th>Número de Pedidos</th>
-            </thead>
-            <tbody>
-                <c:forEach var="mesa" items="${mesas}">
-                    <tr>
-                        <td>${mesa.id}</td>
-                        <td>${mesa.descricao}</td>
-                        <td>${fn:length(mesa.pedido)}</td>
-                        <td><a href="pedidos.html?mesa=${mesa.id}">Incluir/Visualizar Pedidos</a></td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </body>
+            <th>Opções</th>
+        </thead>
+        <tbody>
+            <c:forEach var="mesa" items="${mesas}">
+                <tr>
+                    <td>${mesa.id}</td>
+                    <td>${mesa.descricao}</td>
+                    <td>${fn:length(mesa.pedido)}</td>
+                    <td><a href="pedidos.html?mesa=${mesa.id}">Incluir/Visualizar Pedidos</a></td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</body>
 </html>

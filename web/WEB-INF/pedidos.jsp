@@ -8,37 +8,60 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%@include file="jspf/head.jspf" %>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Lista do Pedidos da Mesa</title>
+        <%@include file="jspf/head.jspf" %>
+    </head>
     <body>
-        <table>
+        <h1>Lista de Pedidos</h1>
+        <table class="table table-dark">
             <thead>
-            <th>ID</th>
-            <th>Descrição</th>
-            <th>Horário de Abertura</th>
-            <th>Horário de Fechamento</th>
-            <th>Número de Itens do pedido</th>
-            <th>Opções</th>
-        </thead>
-        <tbody>
-            <c:choose>
-                <c:when test="${fn:length(pedidos)!=0}">
-                    <c:forEach var="pedido" items="${pedidos}">
-                        <tr>
-                            <td>${pedido.id}</td>
-                            <td>${pedido.descricao}</td>
-                            <td>${pedido.hora_abertura}</td>
-                            <td>${pedido.hora_fechamento}</td>
-                            <td>${fn:length(pedido.itemPedido)}</td>
-                            <td><a href="itens.html?pedido=${pedido.id}">Incluir/Visualizar Itens</a></td>
-                        </tr>
-                    </c:forEach>
-                </c:when>
-                    <c:when test="${fn:length(pedidos)==0}">
-                    <td colspan="6">Não há Pedidos cadastrados nessa Mesa. Adicione um!</td> 
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Horário de Abertura</th>
+                    <th>Horário de Fechamento</th>
+                    <th>Valor Total do Pedido</th>
+                    <th>Número de Itens do pedido</th>
+                    <th colspan="2">Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:choose>
+                    <c:when test="${fn:length(pedidos)!=0}">
+                        <c:forEach var="pedido" items="${pedidos}">
+                            <tr>
+                                <td>${pedido.id}</td>
+                                <td>${pedido.descricao}</td>
+                                <td>${pedido.hora_abertura}</td>
+                                <td>${pedido.hora_fechamento}</td>
+                                <td>${pedido.valorTotal}</td>
+                                <td>${fn:length(pedido.itemPedido)}</td>
+                                <td><a href="itens.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}">Incluir/Visualizar Itens</a></td>
+                                <c:choose>
+                                    <c:when test="${!pedido.fechado}">
+                                        <td><a href="fechar-pedido.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}">Fechar Pedido</a></td>
+                                    </c:when>
+                                    <c:when test="${pedido.fechado}">
+                                        <td><a href="fechar-pedido.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}">Imprimir Pedido</a></td>
+                                    </c:when>
+                                </c:choose>
+                            </tr>
+                        </c:forEach>
                     </c:when>
-            </c:choose>
-        </tbody>
-        <tfoot><a href="adicionarPedido.html">Adicionar Pedido</a></tfoot>
-    </table>
-</body>
+                    <c:when test="${fn:length(pedidos)==0}">
+                        <tr>
+                            <td colspan="6">Não há Pedidos cadastrados nessa Mesa. Adicione um!</td> 
+                        </tr>
+                    </c:when>
+                </c:choose>
+            </tbody>
+
+        </table>
+        <div>
+            <a href="adicionar-pedidos.html?mesaPedido=${mesaPedido.id}" class="btn btn-success">Adicionar Pedido</a>
+            <a href="mesas.html" class="btn btn-danger">Voltar</a>
+        </div>
+    </body>
 </html>

@@ -8,10 +8,18 @@
 <!DOCTYPE html>
 
 <html>
-    <%@include file="jspf/head.jspf" %>
+     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Restaurante</title>
+        <%@include file="jspf/head.jspf" %>
+    </head>
     <body>
-        <a href="mesas.html" class="btn btn-success"><img src="icones/mesas.png"></a>
-        
+        <nav class="navbar navbar-dark bg-primary">
+            <a href="mesas.html" class="btn btn-success navbar-brand"><img src="icones/mesas.png" height="30" width="30" class="d-inline-block align-top">
+                Restaurante
+            </a>
+        </nav>
+        <img src="icones/restaurante.jpg" class="img-fluid rounded mx-auto d-block">
     </body>
 </html>
 
