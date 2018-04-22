@@ -15,11 +15,10 @@ public class Produto {
     private Double valor;
 
     private static int gencodigo = 0;
+    private static List<Produto> ListProdutos;
 
     public Produto() {
     }
-    
-    
 
     public Produto(String descricao, Double valor) {
         this.id = gerarCodigo();
@@ -50,7 +49,6 @@ public class Produto {
     public String getDescricao() {
         return descricao;
     }
-    
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
@@ -61,40 +59,53 @@ public class Produto {
     }
 
     public void setValor(double valor) {
-        if(valor>0){
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.CEILING);
-        Number n = 0;
-        try{
-        n = df.parse(df.format(valor));
-        }catch (ParseException ex){
-            System.out.println("Erro na conversão");
-        }
-        this.valor = n.doubleValue();
-    }
-        else{
+        if (valor > 0) {
+            DecimalFormat df = new DecimalFormat("#.##");
+            df.setRoundingMode(RoundingMode.CEILING);
+            Number n = 0;
+            try {
+                n = df.parse(df.format(valor));
+            } catch (ParseException ex) {
+                System.out.println("Erro na conversão");
+            }
+            this.valor = n.doubleValue();
+        } else {
             throw new NumberFormatException();
         }
     }
+
     @Override
     public String toString() {
         return "Descrição: " + descricao + "; Valor: R$ " + valor;
     }
-    
-    public Produto clonar(){
+
+    public Produto clonar() {
         Produto p = new Produto();
         p.setId(this.id);
         p.setDescricao(this.descricao);
         p.setValor(this.valor);
         return p;
     }
-      public static List<Produto> getSampleData() {
-        List<Produto> ListProdutos = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Produto p = new Produto("Produto " + i, (45.8 * i+1) / 3);
-            ListProdutos.add(p);
+
+    public static List<Produto> getSampleData() {
+        if (ListProdutos == null) {
+            ListProdutos = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                Produto p = new Produto("Produto " + i, (45.8 * i + 1) / 3);
+                ListProdutos.add(p);
+            }
+            return ListProdutos;
+
         }
         return ListProdutos;
+    }
 
+    public static Produto getProdutoByID(Integer id) {
+        for (Produto p : ListProdutos) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
     }
 }

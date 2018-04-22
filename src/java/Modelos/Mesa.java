@@ -1,4 +1,5 @@
 package Modelos;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class Mesa {
 
     private static int gencodigo = 1;
     private int gencodigoPedido = 1;
+    private static List<Mesa> ListMesa;
 
     public int gerarCodigoPedido() {
         int cod = gencodigoPedido;
@@ -52,12 +54,18 @@ public class Mesa {
     }
 
     public void gerarPedido() {
-        Pedido p = new Pedido(this,LocalTime.now());
+        Pedido p = new Pedido(this, LocalTime.now());
+        p.gerarItemPedido();
+        this.pedido.add(p);
+    }
+    
+    public void gerarPedidoNovo() {
+        Pedido p = new Pedido(this, LocalTime.now());
         this.pedido.add(p);
     }
     
     public Pedido criarPedido() {
-        Pedido p = new Pedido(this,LocalTime.now());
+        Pedido p = new Pedido(this, LocalTime.now());
         return p;
     }
 
@@ -66,12 +74,35 @@ public class Mesa {
         gencodigo++;
         return cod;
     }
-     public static List<Mesa> getSampleDataMesa() {
-        List<Mesa> ListMesa = new ArrayList<>();
-        for (int i = 0; i <= 4; i++) {
-            Mesa m = new Mesa();
-            ListMesa.add(m);
+
+    public static List<Mesa> getSampleDataMesa() {
+        if (ListMesa == null) {
+            ListMesa = new ArrayList<>();
+            for (int i = 0; i <= 4; i++) {
+                Mesa m = new Mesa();
+                m.gerarPedido();
+                ListMesa.add(m);
+            }
+            return ListMesa;
         }
         return ListMesa;
+    }
+    
+    public static Mesa getMesaByID(Integer id){
+        for(Mesa m : ListMesa){
+            if(m.getId()==id){
+                return m;
+            }
+        }
+        return null;
+    }
+    
+    public Pedido getPedidoByID(Integer id){
+        for(Pedido p : pedido){
+            if(p.getId()==id){
+                return p;
+            }
+        }
+        return null;
     }
 }

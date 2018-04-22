@@ -8,12 +8,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Pedido {
 
     private int id;
 
     private String descricao;
+
+    private int gencodigoItem = 1;
 
     private Mesa mesa;
 
@@ -22,8 +25,16 @@ public class Pedido {
     private LocalTime hora_fechamento;
 
     private List<ItemPedido> itemPedido;
-
+    private Double valorTotal;
     private boolean fechado;
+
+    public int getGencodigoItem() {
+        return gencodigoItem;
+    }
+
+    public void setGencodigoItem(int gencodigoItem) {
+        this.gencodigoItem = gencodigoItem;
+    }
 
     public Pedido(Mesa mesa, LocalTime hora_abertura) {
         this.mesa = mesa;
@@ -63,12 +74,12 @@ public class Pedido {
     }
 
     public String getHora_fechamento() {
-        if(this.hora_fechamento==null){
+        if (this.hora_fechamento == null) {
             return "Pedido Aberto";
         }
         String fechamento = hora_fechamento.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
         return fechamento;
-        
+
     }
 
     public void setHora_fechamento(LocalTime hora_fechamento) {
@@ -106,13 +117,24 @@ public class Pedido {
         }
         return n.doubleValue();
     }
-
+    
+    public void setValorTotal(Double valorTotal){
+        this.valorTotal = valorTotal;
+    }
     public void adicionarItem(ItemPedido i) {
         itemPedido.add(i);
+        this.setValorTotal(this.getValorTotal());
     }
 
     public void removerItem(ItemPedido i) {
         itemPedido.remove(i);
+        this.setValorTotal(this.getValorTotal());
+    }
+
+    public int gerarCodigoItem() {
+        int cod = gencodigoItem;
+        gencodigoItem++;
+        return cod;
     }
 
     @Override
@@ -120,4 +142,40 @@ public class Pedido {
         return "\nID: " + id + "\n Descrição:" + descricao + "\n Mesa: " + mesa + "\n Hora de Abertura: " + hora_abertura.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) + "\n Hora de fechamento: " + hora_fechamento.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) + "\n Valor Total: R$ " + getValorTotal();
     }
 
+    public void gerarItemPedido() {
+        Random r = new Random();
+        ItemPedido ip = new ItemPedido(this, Produto.getSampleData().get(r.nextInt(10)), r.nextInt(50));
+        this.getItemPedido().add(ip);
+        this.setValorTotal(this.getValorTotal());
+    }
+
+    public ItemPedido getItemPedidoById(Integer id) {
+        for (ItemPedido it : itemPedido) {
+            if (it.getId() == id) {
+                return it;
+            }
+        }
+        return null;
+    }
+
+    public void setItemPedidoById(ItemPedido item) {
+        for (ItemPedido it : itemPedido) {
+            if (it.getId() == item.getId()) {
+                Integer index = itemPedido.indexOf(it);
+                itemPedido.set(index, item);
+                this.setValorTotal(this.getValorTotal());
+            }
+        }
+    }
+
+    public boolean removeItemPedidoById(ItemPedido item) {
+        for (ItemPedido it : itemPedido) {
+            if (it.getId() == item.getId()) {
+                ((ArrayList) itemPedido).remove(it);
+                this.setValorTotal(this.getValorTotal());
+                return true;
+            }
+        }
+        return false;
+    }
 }
