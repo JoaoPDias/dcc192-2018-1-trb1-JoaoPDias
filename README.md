@@ -29,6 +29,4 @@ A implementação dos Servlets e as lógicas de mudança de requisições e resp
 
 ## Pontos onde podem ser realizadas melhorias futuras
 
-Devem ser feitas melhorias a cerca dos dados, utilizando um banco de dados para facilitar o uso e também permitir a criação de novas funcionalidades.
-
-A interface necessita de melhorias quanto a implementação de atalhos, a sinalização de pedidos fechados na tabela de pedidos.
+Devem ser feitas melhorias a cerca dos dados, utilizando um banco de dados para facilitar o uso e também permitir a criação de novas funcionalidades, como gerenciamento dos dados do cliente e relatório de ganhos.
