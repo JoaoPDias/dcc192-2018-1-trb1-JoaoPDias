@@ -35,7 +35,6 @@ public class Pedido {
     public void setGencodigoItem(int gencodigoItem) {
         this.gencodigoItem = gencodigoItem;
     }
-
     public Pedido(Mesa mesa, LocalTime hora_abertura) {
         this.mesa = mesa;
         this.hora_abertura = hora_abertura;

@@ -11,7 +11,7 @@
     </head>
     <body>
         <h1>Lista de Itens do Pedidos</h1>
-        <table class="table table-dark">
+        <table class="table bg-primary text-white">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -32,8 +32,8 @@
                                 <td>${item.produto.valor}</td>
                                 <td>${item.quantidade}</td>
                                 <td>${item.valorTotal}</td>
-                                <td><a href="editar-item.html?mesa=${mesa.id}&pedido=${pedido.id}&item=${item.id}">Editar Item</a></td>
-                                <td><a href="excluir-item.html?mesa=${mesa.id}&pedido=${pedido.id}&item=${item.id}">Excluir Item</a></td>
+                                <td><a href="editar-item.html?mesa=${mesa.id}&pedido=${pedido.id}&item=${item.id}" class="text-white">Editar Item</a></td>
+                                <td><a href="excluir-item.html?mesa=${mesa.id}&pedido=${pedido.id}&item=${item.id}" class="text-white">Excluir Item</a></td>
                             </tr>
                         </c:forEach>
                     </c:when>

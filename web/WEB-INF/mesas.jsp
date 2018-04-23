@@ -12,7 +12,7 @@
     </head>
     <body>
         <h1>Lista de Mesas</h1>
-        <table class="table table-dark">
+        <table class="table bg-info text-white">
             <thead>
             <th>ID</th>
             <th>Descrição</th>
@@ -25,7 +25,7 @@
                     <td>${mesa.id}</td>
                     <td>${mesa.descricao}</td>
                     <td>${fn:length(mesa.pedido)}</td>
-                    <td><a href="pedidos.html?mesa=${mesa.id}">Incluir/Visualizar Pedidos</a></td>
+                    <td><a href="pedidos.html?mesa=${mesa.id}" class="text-white">Incluir/Visualizar Pedidos</a></td>
                 </tr>
             </c:forEach>
         </tbody>

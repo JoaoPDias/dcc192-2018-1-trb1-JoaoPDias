@@ -15,7 +15,7 @@
     </head>
     <body>
         <h1>Lista de Pedidos</h1>
-        <table class="table table-dark">
+        <table class="table table-light">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -31,20 +31,31 @@
                 <c:choose>
                     <c:when test="${fn:length(pedidos)!=0}">
                         <c:forEach var="pedido" items="${pedidos}">
-                            <tr>
+                            <c:choose>
+                                <c:when test="${!pedido.fechado}">
+                                    <tr class="bg-success text-white">
+                                    </c:when>
+                                    <c:when test="${pedido.fechado}">
+                                    <tr class="bg-danger text-white">
+                                    </c:when>
+                                </c:choose>
+
                                 <td>${pedido.id}</td>
                                 <td>${pedido.descricao}</td>
                                 <td>${pedido.hora_abertura}</td>
                                 <td>${pedido.hora_fechamento}</td>
                                 <td>${pedido.valorTotal}</td>
                                 <td>${fn:length(pedido.itemPedido)}</td>
-                                <td><a href="itens.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}">Incluir/Visualizar Itens</a></td>
                                 <c:choose>
-                                    <c:when test="${!pedido.fechado}">
-                                        <td><a href="fechar-pedido.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}">Fechar Pedido</a></td>
+                                    <c:when test="${!pedido.fechado && fn:length(pedido.itemPedido)!=0}">
+                                        <td><a href="itens.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}" class="text-white">Incluir/Visualizar Itens</a></td>
+                                        <td><a href="fechar-pedido.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}" class="text-white">Fechar Pedido</a></td>
+                                    </c:when>
+                                    <c:when test="${!pedido.fechado && fn:length(pedido.itemPedido)==0}">
+                                        <td colspan="2"><a href="itens.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}" class="text-white">Incluir/Visualizar Itens</a></td>
                                     </c:when>
                                     <c:when test="${pedido.fechado}">
-                                        <td><a href="fechar-pedido.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}">Imprimir Pedido</a></td>
+                                        <td colspan="2"><a href="fechar-pedido.html?mesaPedido=${mesaPedido.id}&pedido=${pedido.id}" class="text-white" >Imprimir Pedido</a></td>
                                     </c:when>
                                 </c:choose>
                             </tr>
@@ -66,7 +77,7 @@
                 </c:when>
                 <c:when test="${requestScope.abertos=='true'}">
                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Um Pedido está Aberto. Feche-o, para adicionar um novo">
-                    <button class="btn btn-success" disabled="disabled" >Adicionar Pedido</button>
+                        <button class="btn btn-success" disabled="disabled" >Adicionar Pedido</button>
                     </span>
                 </c:when>
             </c:choose>

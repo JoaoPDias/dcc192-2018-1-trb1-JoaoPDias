@@ -44,7 +44,7 @@
             </thead>
             <tbody>
                 <c:forEach var="item" items="${pedido.itemPedido}">
-                    <tr class="bg-success">
+                    <tr class="bg-success text-white">
                         <td>${item.id}</td>
                         <td>${item.produto.descricao}</td>
                         <td>${item.produto.valor}</td>
